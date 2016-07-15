@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dateApp</title>
+
+    <link rel="stylesheet" type=text/css href="{{ url_for('static',filename='css/newstyle.css') }}">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="{{ url_for('static',filename='js/chataction.js') }}"></script>
+    <script src=http://cdn.pubnub.com/pubnub.min.js></script>
+
+    <script type="text/javascript">
+        var pubnub = PUBNUB({
+            publish_key: 'pub-c-487cbe24-d413-4eba-b857-765d0eb5164f',
+            subscribe_key: 'sub-c-4b9d290c-ece0-11e5-8346-0619f8945a4f',
+            uuid: "{{ user_data.uname }}"
+            });
+
+        function popup(){
+            cuteLittleWindow = window.open("page.html", "littleWindow", "location=no,width=320,height=200");
+        }
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+        <p id="demo"></p>
+
+        <h1>Hi {{ user_data.uname }}</h1>
+        <input type="hidden" id="myusername" value="{{ user_data.uname }}">
+        <input type="hidden" id="mychannel" value="{{ channel }}">
+
+
+        <!--<p> Below are some of {{ user_data.interestedIn}}'s you might be interested in </p>-->
+        <p> Below are some single's you might be interested in </p>
+
+        {% for like_user in interested_users %}
+        <div class="userpanel">
+            <div class="username">{{ like_user.uname }}</div>
+            <div class="userchat">
+                <input type="button" name="chat{{ like_user.uname }}" value="chat"/>
+            </div>
+            <div class="usermsg">
+                <input type="button" name="msg{{ like_user.uname }}" value="message" onclick="msg_pop()"/>
+                <a href="javascript:popup()">Message</a>
+            </div>
+        </div>
+        <input type="hidden" id="mylikeduser" value="{{ like_user.uname }}">
+
+        <div align="Right">
+            <form action="editprofile" method="post">
+                <input type="hidden" name="myname" value="{{ user_data.uname }}">
+                <input class="btn btn-default" type="submit" value="Edit My Account">
+            </form>
+        </div>
+
+        <div align="Right">
+            <form action="subscribe" method="post">
+                <input type="hidden" name="mysub" value="{{ user_data.uname }}">
+                <input class="btn btn-default" type="submit" value="subscribe">
+            </form>
+        </div>
+
+
+        <!--<div id="pubnub" pub-key="pub-c-487cbe24-d413-4eba-b857-765d0eb5164f"
+             sub-key="sub-c-4b9d290c-ece0-11e5-8346-0619f8945a4f">
+        </div>-->
+
+        <div class="msg_box" style="right:10px">
+            <div class="msg_head">{{ like_user.uname }}
+            <div class="close">x</div>
+            </div>
+            <div class="msg_wrap">
+                <div class="msg_body">
+                    <div class="msg_a">This is from {{ user_data.uname }}</div>
+                    <div class="msg_b">This is from {{ like_user.uname }}, and its amazingly kool nah.. :)</div>
+                    <div class="msg_a"> Refresh will delete chat except these three messages</div>
+                    <div class="msg_push"></div>
+                    <!--
+                    $('#messages').prepend(message_html);
+                     $('<div class="msg_b">'+msg+'</div>').insertBefore('.msg_push');
+                    -->
+                </div>
+                <div class="msg_footer"><textarea class="msg_input" rows="4"></textarea></div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+            {% endif %}
+    </div>
+
+</body>
+</html>

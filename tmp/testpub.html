@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script data-require="jquery@2.0.3" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="script.js"></script>
+</head>
+
+<body>
+<h1>Simple PubNub Chat</h1>
+<form>
+    <div>
+        <label for="name">user2</label>
+        <br/>
+        <input id="name"/>
+    </div>
+    <div>
+        <label for="message">Message:</label>
+        <br/>
+        <textarea id="message" style="width: 400; height:200"></textarea>
+    </div>
+    <div>
+        <button id='send_message_btn' onclick='return send_message();'>Send message</button>
+    </div>
+</form>
+<div id='messages'></div>
+<div id="pubnub"
+     pub-key="pub-c-f4a90e76-f06e-42b8-9594-3756a8bac175"
+     sub-key="sub-c-daf9c6dc-e063-11e2-ab32-02ee2ddab7fe"></div>
+<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
+</body>
+
+</html>

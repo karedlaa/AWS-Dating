@@ -1,0 +1,157 @@
+<html>
+<head>
+    <title>dateApp Signin</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h2> Edit profile</h2>
+
+<form action="updateprofile" method="POST">
+    <table>
+        <tr>
+            <td>
+                <p1>Username {{ user.uname }}</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="value" name="name" value="{{user.uname}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p1>Password</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="password" name="password" value="{{user.password}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p1>Enter Password again</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="password" name="passwordV" value="{{user.password}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p1>Email Id</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="email" name="emailid" value="{{user.email}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p1>Phone</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="number" name="phone" value="{{user.phone}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p1>Date of Birth</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="date" name="dob" value="{{user.dob}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p1>Address line1</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="value" rows="7" cols="60" name="addrline1"
+                       value="{{user.address.line1}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p1>Address line2</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="value" rows="7" cols="60" name="addrline2"
+                       value="{{user.address.line2}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p1>City</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="value" rows="7" cols="60" name="city"
+                       value="{{user.address.city}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p1>State</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="value" rows="7" cols="60" name="state"
+                       value="{{user.address.state}}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p1>Country</p1>
+            </td>
+            <td>
+                <input class="textarea_format " type="value" rows="7" cols="60" name="country"
+                       value="{{user.address.country}}"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <p1>Gender</p1>
+            </td>
+            {% if user["gender"] == 'Male': %}
+            <td>
+                <input type="radio" name="Gender" value="Male" checked="checked">Male    </input>
+                <br>
+                <input type="radio" name="Gender" value="Female">Female</input>
+            </td>
+            {% else: %}
+            <td>
+                <input type="radio" name="Gender" value="Male">Male    </input>
+                <br>
+                <input type="radio" name="Gender" value="Female" checked="checked">Female</input>
+            </td>
+            {%endif%}
+        </tr>
+        <tr>
+            <td>
+                <p1>Interested in</p1>
+                <br>
+            </td>
+            <td>{% if user["interestedIn"] == 'Male': %}
+                <input type="checkbox" name="Interested" value="Male" checked="checked">Male</input>
+                <input type="checkbox" name="Interested" value="Female">Female</input>
+                <input type="checkbox" name="Interested" value="Female">both</input>
+                {% elif user["interestedIn"] == 'Female': %}
+                <input type="checkbox" name="Interested" value="Male">Male</input>
+                <input type="checkbox" name="Interested" value="Female" checked="checked">Female</input>
+                <input type="checkbox" name="Interested" value="Female">both</input>
+                {% else %}
+                <input type="checkbox" name="Interested" value="Male">Male</input>
+                <input type="checkbox" name="Interested" value="Female">Female</input>
+                <input type="checkbox" name="Interested" value="Female" checked="checked">both</input>
+                {%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="btn btn-default" type="submit" value="Update">
+            </td>
+        </tr>
+    </table>
+</form>
+{% if message %}
+<p class="error"><strong> {{ message }} </strong></p>
+<form action="login" method="post">
+    <input class="btn btn-default" type="submit" value="login">
+</form>
+{% endif %}
+</body>
+</html>
