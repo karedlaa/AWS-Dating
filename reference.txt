@@ -1,0 +1,101 @@
+
+
+
+Dynamo DB
+
+Dynamo DB local installation with jar file
+TO create Table:
+
+var params = {
+    TableName : "dateapp",
+    KeySchema: [       
+        { AttributeName: "username", KeyType: "HASH" },  //Partition key
+        { AttributeName: "dob", KeyType: "RANGE" }  //Sort key
+    ],
+    AttributeDefinitions: [       
+        { AttributeName: "username", AttributeType: "S" },
+        { AttributeName: "dob", AttributeType: "S" }
+    ],
+    ProvisionedThroughput: {       
+        ReadCapacityUnits: 1, 
+        WriteCapacityUnits: 1
+    }
+};
+
+dynamodb.createTable(params, function(err, data) {
+    if (err)
+        console.log(JSON.stringify(err, null, 2));
+    else
+        console.log(JSON.stringify(data, null, 2));
+});
+
+To describe Table:
+
+var params = {
+    TableName: "dateapp"
+};
+
+dynamodb.describeTable(params, function(err, data) {
+    if (err)
+        console.log(JSON.stringify(err, null, 2));
+    else
+        console.log(JSON.stringify(data, null, 2));
+});
+
+list of tables:
+
+var params = {};
+
+dynamodb.listTables(params, function(err, data) {
+    if (err)
+        console.log(JSON.stringify(err, null, 2));
+    else
+        console.log(JSON.stringify(data, null, 2));
+});
+
+
+Install awscli
+
+pip install awscli
+
+aws credentials
+
+set creadentials with above command before using boto3
+
+To create table in dynamo db using python
+
+table = client.create_table(
+    TableName='dateapp',
+    KeySchema=[
+        {
+            'AttributeName': 'username',
+            'KeyType': 'HASH'
+        },
+        {
+            'AttributeName': 'dob',
+            'KeyType': 'RANGE'
+        }
+    ],
+    AttributeDefinitions=[
+        {
+            'AttributeName': 'username',
+            'AttributeType': 'S'
+        },
+        {
+            'AttributeName': 'dob',
+            'AttributeType': 'S'
+        },
+
+    ],
+    ProvisionedThroughput={
+        'ReadCapacityUnits': 1,
+        'WriteCapacityUnits': 1
+    }
+)
+
+Install cassandra on ec2:
+http://www.jonathanhui.com/install-cassandra-single-node-amazon-linux
+sudo yum update
+wget http://apache.arvixe.com/cassandra/3.4/apache-cassandra-3.4-bin.tar.gz
+
+
